@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Business Success Prediction</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .backdrop {
+            background-color: rgba(255, 255, 255, 0.85);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-4 py-8">
+    <!-- Top Navbar -->
+    <header class="w-full bg-gray-900 text-white px-6 py-4 flex justify-between items-center fixed top-0 left-0 z-50">
+      <!-- Logo / Title -->
+      <h1 class="text-2xl font-bold text-blue-500">Success Fortell</h1>
+  
+      <!-- Navigation Links -->
+      <nav class="flex justify-center space-x-16 text-xl relative">
+        <a href="{{ url_for('home') }}" class="text-lg hover:text-blue-400">Home</a>
+        <a href="{{ url_for('home') }}#about" class="text-lg hover:text-blue-400">About</a>
+        <a href="{{ url_for('home') }}#features" class="text-lg hover:text-blue-400">Features</a>
+        <a href="{{ url_for('home') }}#testimonials" class="text-lg hover:text-blue-400">Testimonials</a>
+        <a href="{{ url_for('home') }}#contactus" class="text-lg hover:text-blue-400">contact us</a>
+      
+        <!-- Profile Dropdown -->
+        <div class="relative inline-block text-left">
+            <!-- Hidden Checkbox Toggle -->
+            <input type="checkbox" id="profileToggle" class="hidden peer" />
+          
+            <!-- Label acts as the clickable toggle -->
+            <label for="profileToggle" class="cursor-pointer text-lg hover:text-blue-400 peer-checked:text-blue-400">
+              Profile
+            </label>
+          
+            <!-- Dropdown shown only when checkbox is checked -->
+            <div class="absolute right-0 mt-2 hidden peer-checked:block bg-white shadow-md rounded-md w-48 text-gray-800 z-20">
+              <div class="px-4 py-3 border-b border-gray-200">
+                <p class="text-sm font-semibold">successfortell@gmail.com</p>
+              </div>
+              <a href="{{ url_for('logout') }}" class="block px-4 py-2 hover:bg-gray-100">Logout</a>
+            </div>
+          </div>          
+      </nav>      
+    </header>
+  
+    <div class="backdrop max-w-2xl w-full p-8 rounded-lg shadow-lg">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Business Success Prediction</h2>
+      
+      <form method="POST" action="/predict" class="space-y-5">
+  <!-- Business City Dropdown -->
+  <div>
+    <label for="location" class="block font-semibold text-gray-700">Business City</label>
+    <select id="location" name="location" required onchange="updateAreaDropdown()" class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500">
+      <option value="">Select a city</option>
+      <option value="1">Bhopal</option>
+      <option value="2">Indore</option>
+    </select>
+  </div>
+
+  <!-- Type of Business Dropdown -->
+  <div>
+    <label for="tob" class="block font-semibold text-gray-700">Type of Business</label>
+    <select id="tob" name="tob" required class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500">
+      <option value="">Select business type</option>
+      <option value="3">Restaurant</option>
+      <option value="4">Grocery Shop</option>
+    </select>
+  </div>
+
+  <!-- Area Dropdown -->
+  <div>
+    <label for="area" class="block font-semibold text-gray-700">Business Area</label>
+    <select id="area" name="area" required class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500">
+      <option value="">Select area</option>
+      <!-- Options will be dynamically inserted here -->
+    </select>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="text-center">
+    <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition-all">
+      Predict Success
+    </button>
+  </div>
+</form>
+
+<!-- JavaScript to update area dropdown -->
+<script>
+  const areaOptions = {
+    1: [ // Bhopal
+      { value: 11, name: 'Piplani' },
+      { value: 12, name: 'New market' },
+      { value: 13, name: 'Kolar' },
+      { value: 14, name: 'Raisen road' }
+    ],
+    2: [ // Indore
+      { value: 21, name: 'Bhawar kua' },
+      { value: 22, name: 'Vijay nagar' },
+      { value: 23, name: 'Khajuri market' },
+      { value: 24, name: 'Rau' }
+    ]
+  };
+
+  function updateAreaDropdown() {
+    const location = document.getElementById('location').value;
+    const areaSelect = document.getElementById('area');
+
+    // Clear previous options
+    areaSelect.innerHTML = '<option value="">Select area</option>';
+
+    if (areaOptions[location]) {
+      areaOptions[location].forEach(option => {
+        const opt = document.createElement('option');
+        opt.value = option.value;
+        opt.text = option.name;
+        areaSelect.appendChild(opt);
+      });
+    }
+  }
+</script>        
+  </div>
+  
+    
+  <script src="page.js"></script>
+
+</body>
+</html>
+
