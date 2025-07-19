@@ -32,6 +32,7 @@ const ele24 =document.getElementById('op24');
 element.value=24;
 */
 
+console.log("hello")
 const values = [1, 2, 3, 4, 11, 12, 13, 14, 21, 22, 23, 24];
 
 values.forEach(val => {
